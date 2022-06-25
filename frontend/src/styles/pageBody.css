@@ -1,0 +1,37 @@
+.pageBody{
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-flow: column;
+}
+
+
+.pageBody .pageBody_column .pageBody_Row{
+    flex: 0 1 auto;
+}
+
+.pageBody .pageBody_column .pageBody_Content{
+    flex: 1 1 100%;
+}
+
+.pageBody_Content{
+    margin-top: 70px;
+ 
+    flex: 3;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.pageBody_Column{
+    flex: 2;
+}
+
+.pageBody_Content section{
+    flex: 4;
+    background-color: rgb(228, 228, 228);
+
+}
+
+

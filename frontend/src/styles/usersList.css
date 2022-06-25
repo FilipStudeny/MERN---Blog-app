@@ -1,0 +1,61 @@
+
+.usersList{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    padding: 15px 15px 15px 15px;
+}
+
+.usersList h1{
+    color: rgb(63, 63, 63);
+    font-size: 30px;
+    
+    text-align: center;
+    width: 100%;
+    border-bottom: 2px solid rgb(63, 63, 63);
+}
+
+.usersList_Item{
+    background-color: rgb(218, 218, 218);
+    border-radius: 10px;
+    width: 350px;
+
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.usersList_Item a{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    padding: 10px 10px 10px 10px;
+    border-radius: 10px;
+
+    text-decoration: none;
+    color: rgb(63, 63, 63);
+}
+
+.usersList_Item:hover, .usersList a:hover{
+    background-color: grey;
+    color: whitesmoke;
+}
+
+.UsersList_ItemImage{
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    border: 3px solid rgb(194, 194, 194);
+}
+
+.usersList_Data{
+    margin-left: 25px;
+}
+
+.usersList_Data h3{
+    margin-left: 20px;
+}

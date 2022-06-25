@@ -1,0 +1,71 @@
+
+.pageHeader{
+    height: 70px;
+    width: 100%;
+    background-color: rgb(95, 123, 216);
+
+    position: fixed;
+    top: 0;
+
+}
+
+.pageHeader a{
+    padding: 5px 10px 5px 10px;
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: none;
+
+    color: rgb(255, 255, 255);
+}
+
+.pageHeader a:hover{
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    color: rgb(65, 65, 65);
+}
+
+.pageHeader_UserImg{
+    width: 50px;
+    height: 50px;
+
+    margin-right: 360px;
+}
+
+.pageHeader_UserImg img{
+    width: 50px;
+    height: 50px;
+
+    border-radius: 50px;
+}
+
+.navBar{
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.navBar div{
+    flex: 2;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.navBar div:nth-child(3) a:nth-child(1){
+    margin-left: 150px;
+}
+
+.navBar nav{
+    flex: 3;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
