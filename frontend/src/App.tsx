@@ -7,6 +7,7 @@ import './index.css'
 import './styles/pageHeader.css'
 import './styles/pageBody.css'
 import Places from './pages/Places';
+import CreateNewPost from './pages/CreateNewPost';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
                 <Route path='/' element={<Places/ >}/>
                 <Route path='/users' element={<User/ >}/>
                 <Route path='/:userID/places' element={<Places/ >}/>
+                <Route path='/newpost' element={<CreateNewPost/ >}/>
               </Routes>  
             </section>
             <div className='pageBody_Column'></div>
