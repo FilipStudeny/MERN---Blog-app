@@ -13,14 +13,14 @@ const ModalOverlay = ({title, onCancel, children } : modalProps) => {
                 <h2>{title}</h2>
                 <button onClick={onCancel}>X</button>
             </div>
-            <div className='modal_content'>
+            
+            <form className='modal_content'>
                 {children}
-            </div>
+            </form>
             <div className='modal_footer'>
-                <p>
-                    Footer
-                </p>
+                <button>Submit</button>
             </div>
+           
 
         </div>
         </>

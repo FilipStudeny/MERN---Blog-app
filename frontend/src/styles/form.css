@@ -8,6 +8,8 @@
     flex-direction: column;
 
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    padding: 10px 10px 10px 10px;
+    border-radius: 10px;
 
 }
 
@@ -16,12 +18,37 @@
 
     margin-bottom: 10px;
     margin-left: 10px;
+
+    color: rgb(77, 77, 77);
 }
 
 .form_element input{
     height: 30px;
 
     font-size: 20px;
-    color: grey;
+    color: rgb(77, 77, 77);
+
+    border-radius: 10px;
+    border: none;
+    padding: 10px 10px 10px 10px;
+    background-color: whitesmoke;
+
 
 }
+
+.form_element textarea{
+    font-size: 18px;
+    resize: none;
+
+    color: rgb(77, 77, 77);
+    border-radius: 10px;
+    border: none;
+
+    padding: 10px 10px 10px 10px;
+    background-color: whitesmoke;
+}
+
+.form_element textarea:focus, .form_element input:focus{
+    outline: 2px solid rgb(95, 123, 216);
+}
+
