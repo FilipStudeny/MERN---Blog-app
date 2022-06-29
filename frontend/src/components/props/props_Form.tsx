@@ -1,12 +1,13 @@
 
 export interface InputProps{
-    element?: string,
-    id?: string,
+    inputID: string
+    element: string,
+    title: string,
     inputType: string,
-    label: string,
-    rows?: number,
-    placeholder: string
-    errorText: string,
-    validators: {}
+    placeHolderText: string,
+    value?: string,
+    numberRows? : number,
+
 }
+
 

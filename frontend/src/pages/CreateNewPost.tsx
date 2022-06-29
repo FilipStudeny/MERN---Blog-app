@@ -1,6 +1,4 @@
-import React from 'react'
-import Input from '../components/Input'
-import { VALIDATOR_REQUIRE } from '../components/validators'
+
 import '../styles/form.css'
 
 
@@ -8,15 +6,13 @@ const CreateNewPost = () => {
   return (
     <div className='form_container'>
         <form className='form'>
-            <Input validators={[VALIDATOR_REQUIRE()]} element='input' inputType='text' label='Post Title' placeholder='text' errorText='Please enter valid Input' />
-            <Input validators={[VALIDATOR_REQUIRE()]} element='input' inputType='text' label='Title' placeholder='text' errorText='Please enter valid Input' />
-            <Input validators={[VALIDATOR_REQUIRE()]} element='input' inputType='text' label='Title' placeholder='text' errorText='Please enter valid Input' />
-            <Input validators={[VALIDATOR_REQUIRE()]} element='input' inputType='text' label='Title' placeholder='text' errorText='Please enter valid Input' />
-            <Input validators={[VALIDATOR_REQUIRE()]} element='input' inputType='text' label='Title' placeholder='text' errorText='Please enter valid Input' />
-
-        
+          <input className='input_title' type={'text'} placeholder={'Title'} />
+          <textarea className='input_textArea' placeholder={'Description'} />
+          <span>
+          <input className='input_file' type={'file'} placeholder={''}/>
+          </span>
+          <button type={'submit'}>Create new post</button>
         </form>
-
     </div>
   )
 }
