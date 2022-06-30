@@ -7,6 +7,8 @@ export interface InputProps{
     placeHolderText: string,
     value?: string,
     numberRows? : number,
+    errorText: string,
+    validators: {}
 
 }
 

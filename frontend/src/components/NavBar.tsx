@@ -5,6 +5,7 @@ import '../styles/pageHeader.css'
 import Backdrop from './Backdrop';
 import Input from './Input';
 import Modal from './Modal';
+import { VALIDATOR_REQUIRE } from './validators';
 
 function NavBar() {
 
@@ -13,15 +14,19 @@ function NavBar() {
     const openModal = () => setShowModal(true);
     const closeModal = () => setShowModal(false);
 
-    const content = <Input title='Input' element='INPUT' inputID='id' inputType='INPUT' placeHolderText='text'/> 
-
   return (
     <React.Fragment>    
         { showModal && 
         
         <Modal title='Create new Post' show={showModal} onCancel={closeModal}>
-            <Input title='Input' element='INPUT' inputID='id' inputType='INPUT' placeHolderText='text'/>
-            <Input title='Input' element='textarea' inputID='id' inputType='INPUT' placeHolderText='text'/>
+            <Input title='Input' element='INPUT' inputID='id' inputType='INPUT' 
+                   placeHolderText='text' errorText='ERROR INPUT IS EMPTY' 
+                   validators={[VALIDATOR_REQUIRE()]}
+            />
+            <Input title='Input' element='textarea' inputID='id' 
+                   inputType='INPUT' placeHolderText='text' errorText='ERROR INPUT IS EMPTY' 
+                   validators={[VALIDATOR_REQUIRE()]}
+            />
             
         </Modal>
         }

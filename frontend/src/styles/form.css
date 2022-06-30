@@ -1,7 +1,7 @@
 
-.form_element{
+.form_input_element{
     margin: 10px 10px 5px 10px;
-    width: 70%;
+    width: 80%;
     height: auto;
 
     display: flex;
@@ -13,7 +13,17 @@
 
 }
 
-.form_element label{
+.form_input_element_header{
+    height: auto;
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form_input_element_header label{
     font-size: 20px;
 
     margin-bottom: 10px;
@@ -22,7 +32,12 @@
     color: rgb(77, 77, 77);
 }
 
-.form_element input{
+.form_error_text{
+    font-size: 18px;
+    color: rgb(255, 70, 70);
+}
+
+.form_input_element input{
     height: 30px;
 
     font-size: 20px;
@@ -31,12 +46,17 @@
     border-radius: 10px;
     border: none;
     padding: 10px 10px 10px 10px;
-    background-color: whitesmoke;
-
-
 }
 
-.form_element textarea{
+.form_input_valid{
+    background-color: whitesmoke;
+}
+
+.form_input_invalid{
+    background-color: rgb(255, 174, 174);
+}
+
+.form_input_element textarea{
     font-size: 18px;
     resize: none;
 
@@ -45,10 +65,9 @@
     border: none;
 
     padding: 10px 10px 10px 10px;
-    background-color: whitesmoke;
 }
 
-.form_element textarea:focus, .form_element input:focus{
+.form_input_element textarea:focus, .form_input_element input:focus{
     outline: 2px solid rgb(95, 123, 216);
 }
 
