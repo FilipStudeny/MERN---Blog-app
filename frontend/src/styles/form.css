@@ -71,3 +71,40 @@
     outline: 2px solid rgb(95, 123, 216);
 }
 
+
+.button_submit{
+    margin-top: 10px;
+    margin-bottom: 20px;
+
+    width: 80%;
+    height: auto;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    padding: 10px 10px 10px 10px;
+    border-radius: 10px;
+
+    color: whitesmoke;
+    font-size: 30px;
+    text-align: center;
+}
+
+.button_submit_enabled{
+    background-color: rgb(95, 123, 216);
+}
+
+.button_submit_enabled:hover{
+    background-color: whitesmoke;
+    color: rgb(61, 61, 61);
+    cursor: pointer;
+}
+
+.button_submit_enabled:active{
+    background-color: rgb(95, 123, 216);
+    color: whitesmoke;
+}
+
+
+
+.button_submit_disabled{
+    background-color: rgb(143, 164, 233);
+}

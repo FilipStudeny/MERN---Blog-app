@@ -51,6 +51,11 @@
     cursor: pointer;
 }
 
+.modal_header button:active{
+    background-color: rgb(255, 67, 67);
+    color: whitesmoke;
+}
+
 .modal_content{
     width: 100%;
     min-height: 100px;

@@ -14,8 +14,13 @@ export interface InputProps{
 
 export interface ButtonProps{
     type: any,
+    label: string,
     onClick? : any,
-    disabled: any
+    disabled: any,
+    classname: string
+    classname_enabled: string,
+    classname_disabled: string,
+    
 }
 
 

@@ -63,9 +63,11 @@ function NavBar() {
     const [showModal, setShowModal] = useState(false);
 
     const openModal = (event: any) =>  {
+      event.preventDefault();
         setShowModal(true);
     }
     const closeModal = (event: any) =>  {
+      event.preventDefault();
         setShowModal(false);
     }
 
@@ -85,7 +87,14 @@ function NavBar() {
                    onInput={inputHandler}
             />
 
-            <Button type='submit' disabled={!formState.isValid} />
+            <Button 
+              classname='button_submit' 
+              classname_enabled='button_submit_enabled' 
+              classname_disabled='button_submit_disabled' 
+              type='submit'
+              label='Create new post' 
+              disabled={!formState.isValid} 
+            />
            
         </Modal>
         }
