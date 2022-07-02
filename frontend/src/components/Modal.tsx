@@ -6,6 +6,8 @@ import { modalProps } from './props/props_modal';
 
 
 const ModalOverlay = ({title, onCancel, children } : modalProps) => {
+
+
     const content = (
         <>
         <div className='modal'>

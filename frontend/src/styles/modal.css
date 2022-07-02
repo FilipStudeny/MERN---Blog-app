@@ -48,6 +48,7 @@
 .modal_header button:hover{
     color: rgb(255, 67, 67);
     background-color: whitesmoke;
+    cursor: pointer;
 }
 
 .modal_content{

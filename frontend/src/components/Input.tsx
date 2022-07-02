@@ -1,7 +1,7 @@
 
 import '../styles/form.css'
 import { InputProps } from '../components/props/props_Form'
-import { useReducer } from 'react';
+import { useReducer, useEffect } from 'react';
 import { validate } from './validators';
 
 
@@ -26,9 +26,15 @@ const inputReducer = (state: any, action: any) => {
 }
 
 
-const Input = ( {inputID, element, title, inputType, placeHolderText, numberRows, errorText, validators } : InputProps) => {
+const Input = ( {id, element, title, inputType, placeHolderText, numberRows, errorText, validators, onInput } : InputProps) => {
 
-    const [inputState, inputDispatch] = useReducer(inputReducer, {value: '', inputIsValid: false, isTouched: false});
+    const [inputState, inputDispatch] = useReducer(inputReducer, 
+        {value: '', inputIsValid: false, isTouched: false});
+
+    useEffect(() => {
+        onInput(id, inputState.value, inputState.inputIsValid)
+    }, [id, inputState.value, inputState.inputIsValid, onInput])
+
 
     const onChangeInputEnter = (event: any) => {
         inputDispatch({
@@ -49,7 +55,7 @@ const Input = ( {inputID, element, title, inputType, placeHolderText, numberRows
         <input 
             className={`form_input_valid ${!inputState.inputIsValid && inputState.isTouched && 'form_input_invalid'}`} 
             value={inputState.value} 
-            id={inputID} 
+            id={id} 
             type={inputType} 
             placeholder={placeHolderText} 
             onChange={onChangeInputEnter}
@@ -59,7 +65,7 @@ const Input = ( {inputID, element, title, inputType, placeHolderText, numberRows
         <textarea 
             className={`form_input_valid ${!inputState.inputIsValid && inputState.isTouched && 'form_input_invalid'}`} 
             value={inputState.value} 
-            id={inputID} 
+            id={id} 
             placeholder={placeHolderText} 
             rows={numberRows || 10} 
             onChange={onChangeInputEnter}

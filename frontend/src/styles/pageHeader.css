@@ -12,34 +12,46 @@
 
 }
 
-.pageHeader a{
+.navBar nav a, .login_section a{
     padding: 5px 10px 5px 10px;
     font-size: 20px;
     font-weight: 600;
     text-decoration: none;
 
     color: rgb(255, 255, 255);
+
+    border: none;
+    background-color: rgb(95, 123, 216);
 }
 
-.pageHeader a:hover{
+
+.navBar nav a:hover, .login_section a:hover{
     background-color: rgb(255, 255, 255);
     border-radius: 10px;
     color: rgb(65, 65, 65);
+
+    cursor: pointer;
 }
 
 .pageHeader_UserImg{
-    width: 50px;
-    height: 50px;
+    padding: 5px 5px 5px 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    margin-right: 360px;
+    border-radius: 50%;
 }
-
 .pageHeader_UserImg img{
     width: 50px;
     height: 50px;
 
-    border-radius: 50px;
+    border-radius: 50%;
 }
+
+.pageHeader_UserImg:hover{
+    background-color: rgb(255, 255, 255);
+}
+
 
 .navBar{
     width: 100%;
@@ -63,7 +75,7 @@
     align-items: center;
 }
 
-.navBar div:nth-child(3) a:nth-child(1){
+.login_section a:nth-child(1){
     margin-left: 150px;
 }
 

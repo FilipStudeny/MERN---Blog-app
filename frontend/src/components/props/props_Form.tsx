@@ -1,6 +1,6 @@
 
 export interface InputProps{
-    inputID: string
+    id: string,
     element: string,
     title?: string,
     inputType: string,
@@ -8,8 +8,14 @@ export interface InputProps{
     value?: string,
     numberRows? : number,
     errorText: string,
-    validators: {}
+    validators: {},
+    onInput?: any
+}
 
+export interface ButtonProps{
+    type: any,
+    onClick? : any,
+    disabled: any
 }
 
 
