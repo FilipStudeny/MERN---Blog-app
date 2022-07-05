@@ -19,30 +19,21 @@
 }
 
 .usersList_Item{
-    background-color: rgb(218, 218, 218);
+    background-color: rgb(95, 123, 216);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
     border-radius: 10px;
-    width: 350px;
 
+    width: 350px;
     margin-top: 10px;
     margin-left: 10px;
     margin-right: 10px;
-}
+    padding: 10px 10px 10px 10px;
 
-.usersList_Item a{
     display: flex;
     flex-direction: row;
     align-items: center;
 
-    padding: 10px 10px 10px 10px;
-    border-radius: 10px;
-
     text-decoration: none;
-    color: rgb(63, 63, 63);
-}
-
-.usersList_Item:hover, .usersList a:hover{
-    background-color: grey;
-    color: whitesmoke;
 }
 
 .UsersList_ItemImage{
@@ -53,9 +44,16 @@
 }
 
 .usersList_Data{
-    margin-left: 25px;
+    margin-left: 15px;
+}
+
+.usersList_Data h2{
+    color: whitesmoke;
+    font-size: 35px;
 }
 
 .usersList_Data h3{
-    margin-left: 20px;
+    color: whitesmoke;
+    font-size: 20px;
 }
+

@@ -1,7 +1,7 @@
 
 .form_input_element{
     margin: 10px 10px 5px 10px;
-    width: 80%;
+    width: 95%;
     height: auto;
 
     display: flex;
@@ -76,7 +76,7 @@
     margin-top: 10px;
     margin-bottom: 20px;
 
-    width: 80%;
+    width: 95%;
     height: auto;
 
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);

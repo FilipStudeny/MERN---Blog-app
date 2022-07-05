@@ -1,0 +1,171 @@
+.post{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    padding: 15px 15px 15px 15px;
+}
+
+.post_Item{
+    height: auto;
+    width: 90%;
+
+    background-color: aliceblue;
+
+    border-radius: 10px;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+
+.post_header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 5px 10px 5px 10px;
+
+    width: 100%;
+    background-color: rgb(95, 123, 216);
+}
+
+.post_header div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.post_header div div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.post_User_image{
+    width: 35px;
+    height: 35px;
+
+    background-color: whitesmoke;
+    border-radius: 50%;
+}
+
+.post_authorname{
+    font-size: 18px;
+    color: whitesmoke;
+    margin-left: 8px;
+}
+
+.post_title{
+    font-size: 25px;
+    color: whitesmoke;
+    margin-left: 15px;
+}
+
+.post_delete_btn{
+    width: 150px;
+    height: 40px;
+
+    background-color: rgb(255, 67, 67);
+    border: 0px;
+    border-radius: 10px;
+
+    font-size: 25px;
+    color: whitesmoke;
+}
+
+.post_delete_btn:hover{
+    color: rgb(255, 67, 67);
+    background-color: whitesmoke;
+    cursor: pointer;
+}
+
+.post_delete_btn:active{
+    background-color: rgb(255, 67, 67);
+    color: whitesmoke;
+}
+
+.post_content{
+    width: 100%;
+    height: auto;
+
+    padding: 10px 10px 10px 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+    .post_postimage{
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+    }
+
+    .post_description{
+        padding: 10px 10px 10px 10px;
+        font-size: 18px;
+        color: rgb(51, 51, 51);
+    }
+
+.post_footer{
+    width: 100%;
+    min-height: 30px;
+    
+    border-top: 1px solid rgb(179, 179, 179);
+
+    padding: 10px 10px 10px 10px;
+
+    display: flex;
+    align-items: center;
+}
+
+.post_footer p{
+    color: grey;
+    font-size: 18px;
+}
+
+.comments{
+    width: 90%;
+    height: auto;
+
+    background-color: aliceblue;
+
+    border-radius: 10px;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.comments_header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    padding: 5px 10px 5px 10px;
+
+    width: 100%;
+    background-color: rgb(95, 123, 216);
+}
+
+.comments_input_container{
+    width: 100%;
+    height: auto;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    border-radius: 10px;
+}

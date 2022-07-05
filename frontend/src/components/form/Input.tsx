@@ -1,8 +1,7 @@
 
-import '../styles/form.css'
-import { InputProps } from '../components/props/props_Form'
+import { InputProps } from '../props/props_Form'
 import { useReducer, useEffect } from 'react';
-import { validate } from './validators';
+import { validate } from '../validators';
 
 
 const inputReducer = (state: any, action: any) => {

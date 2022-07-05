@@ -1,10 +1,11 @@
 export interface modalProps{
     show?: boolean,
-    children?: React.ReactElement[],
+    children?: React.ReactElement | React.ReactElement[]
     onClick?: React.MouseEventHandler,
     onCancel?: React.MouseEventHandler,
+    onHandleSubmit?: any,
+    title?: string,
 
-    title?: string
-
+    formData?: {},
 }
 

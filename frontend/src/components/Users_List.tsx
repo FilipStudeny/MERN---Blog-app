@@ -1,13 +1,13 @@
 
 import { UserListProps } from './props/props_UserItem';
-import UserIListtem from './UserIListtem';
+import UserIListtem from './User_Item';
 
 
 const UsersList = ( { users } : UserListProps ) => {
 
     if(!users?.length){
         return(
-            <div>
+            <div className='usersList'>
                 <h1>No users found</h1>
             </div>
         );

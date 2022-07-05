@@ -17,95 +17,100 @@
     border-bottom: 2px solid rgb(63, 63, 63);
 }
 
-.placesList_Item{
+
+.postsList_Item{
+    height: auto;
+    width: 80%;
+
+    background-color: aliceblue;
+
+    border-radius: 10px;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.postList_Item_Link{
+    text-decoration: none;
+}
+
+.postList_Item_header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    padding: 5px 10px 5px 10px;
+
+    width: 100%;
+    background-color: rgb(95, 123, 216);
+
+}
+
+.post_User_image{
+    width: 35px;
+    height: 35px;
+
+    background-color: whitesmoke;
+    border-radius: 50%;
+}
+
+.post_List_Item_authorname{
+    font-size: 18px;
+    color: whitesmoke;
+    margin-left: 15px;
+}
+
+.post_List_Item_posttitle{
+    font-size: 25px;
+    color: whitesmoke;
+    margin-left: 15px;
+}
+
+
+
+.postList_Item_content{
+    width: 100%;
+    height: auto;
+
+    min-height: 50px;
+    max-height: 500px;
+    padding: 10px 10px 10px 10px;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
 
-    background-color: rgb(218, 218, 218);
-    border-radius: 10px;
+    .postItem_postImage{
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+    }
+
+    .postList_Item_description{
+        font-size: 18px;
+        color: rgb(51, 51, 51);
+    }
+
+.postList_Item_footer{
+    width: 100%;
+    min-height: 30px;
+    
+    border-top: 1px solid rgb(179, 179, 179);
 
     padding: 10px 10px 10px 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-
-}
-
-.placesList_Header{
-    width: 100%;
-
-    margin-top: 5px;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
 
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     align-items: center;
-
-    border-bottom: 2px solid grey;
-
 }
 
-.placesList_Header h2{
-    font-size: 25px;
-    color: rgb(63, 63, 63);
-}
-
-
-.placesList_Header a{
-    text-decoration: none;
-    font-size: 25px;
-
-    padding: 5px 10px 5px 10px;
-    color: whitesmoke;
-    background-color: rgb(95, 123, 216);
-    border-radius: 10px;
-
-}
-
-.placesList_Header a:hover{
-    background-color: whitesmoke;
-    color: rgb(63, 63, 63);
-}
-
-
-.placesList_Image{
-    width: 100%;
-    height: 400px;
-
-    object-fit: contain;
-}
-
-.placesList_Data{
-    width: 100%;
-
-    margin-top: 5px;
-    margin-bottom: 10px;
-    padding-top: 10px;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-
-    border-top: 2px solid grey;
-
-}
-
-
-.placesList_Data  a{
-    text-decoration: none;
-    font-size: 25px;
-
-    padding: 5px 10px 5px 10px;
-    color: whitesmoke;
-    background-color: rgb(95, 123, 216);
-    border-radius: 10px;
-}
-
-.placesList_Data a:hover{
-    background-color: whitesmoke;
-    color: rgb(63, 63, 63);
+.postList_Item_footer p{
+    color: grey;
+    font-size: 18px;
 }

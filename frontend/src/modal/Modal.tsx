@@ -2,11 +2,10 @@ import React from 'react'
 import ReactDOM from 'react-dom';
 import '../styles/modal.css'
 import Backdrop from './Backdrop';
-import { modalProps } from './props/props_modal';
+import { modalProps } from '../components/props/props_modal';
 
 
-const ModalOverlay = ({title, onCancel, children } : modalProps) => {
-
+const ModalOverlay = ({title, onCancel, children, onHandleSubmit, formData } : modalProps) => {
 
     const content = (
         <>
@@ -15,22 +14,13 @@ const ModalOverlay = ({title, onCancel, children } : modalProps) => {
                 <h2>{title}</h2>
                 <button onClick={onCancel}>X</button>
             </div>
-            
-            <form className='modal_content'>
-                {children}
-            </form>
+            {children}
             <div className='modal_footer'>
-                <button>Submit</button>
+                
             </div>
-           
-
         </div>
         </>
-       
-        
-        
     )
-
     return ReactDOM.createPortal(content,document.getElementById('modal')!)
 }
 

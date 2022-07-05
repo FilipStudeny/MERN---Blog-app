@@ -1,5 +1,5 @@
 import React from 'react'
-import { ButtonProps } from './props/props_Form'
+import { ButtonProps } from '../props/props_Form'
 
 const Button = ({type, label, disabled, classname, classname_enabled, classname_disabled} : ButtonProps) => {
 
