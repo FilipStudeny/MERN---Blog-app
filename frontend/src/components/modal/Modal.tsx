@@ -1,9 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom';
-import '../styles/modal.css'
 import Backdrop from './Backdrop';
-import { modalProps } from '../components/props/props_modal';
-
+import { modalProps } from '../props/props_modal';
 
 const ModalOverlay = ({title, onCancel, children, onHandleSubmit, formData } : modalProps) => {
 

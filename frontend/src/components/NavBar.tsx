@@ -5,7 +5,7 @@ import { VALIDATOR_EMAIL, VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from './valid
 import '../styles/pageHeader.css'
 
 import Form from './form/Form';
-import Modal from '../modal/Modal';
+import Modal from './modal/Modal';
 import Button from './form/Button';
 import Input from './form/Input';
 

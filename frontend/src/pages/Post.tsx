@@ -3,7 +3,7 @@ import Button from '../components/form/Button';
 
 import Comments from '../components/Comments';
 import context_auth from '../components/context/context_auth';
-import Modal from '../modal/Modal';
+import Modal from '../components/modal/Modal';
 import '../styles/pageHeader.css'
 import '../styles/post.css'
 

@@ -7,6 +7,7 @@ import './index.css'
 import './styles/pageHeader.css'
 import './styles/pageBody.css'
 import './styles/form.css'
+import './styles/modal.css'
 
 import Posts from './pages/Posts';
 import Post from './pages/Post';
