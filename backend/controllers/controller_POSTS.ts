@@ -1,36 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-
-
-const DUMMY_POSTS = [
-    {
-        id: "1",
-        title: "YEEEY",
-        description: "lorem ipsum sudo lomen",
-        creator: "Nicole",
-        userID: "nic123"
-
-    },{
-        id: "2",
-        title: "YEEEY 2",
-        description: "lorem ipsum sudo lomen",
-        creator: "Bogo",
-        userID: "bog"
-
-    },{
-        id: "3",
-        title: "YEEEY 3",
-        description: "lorem ipsum sudo lomen",
-        creator: "Nicole",
-        userID: "nic123"
-
-    },{
-        id: "4",
-        title: "YEEEY 4",
-        description: "lorem ipsum sudo lomen",
-        creator: "Sarah",
-        userID: "sar123"
-    },
-]
+import { validationResult } from 'express-validator';
+import { POST } from "../models/model_Post";
+import { USER } from "../models/model_User";
 
 export const getPosts = (req: Request, res: Response, next: NextFunction) => {
 
@@ -42,57 +13,166 @@ export const getPosts = (req: Request, res: Response, next: NextFunction) => {
     throw next(error);
 };
 
-export const getPlaceByID = (req: Request, res: Response, next: NextFunction) => {
+export const getPostByID = async (req: Request, res: Response, next: NextFunction) => {
     const postID = req.params.postID;
-    const post = DUMMY_POSTS.find( p => {
-        return p.id === postID;
-    });
+    let post: any;
+
+    try {
+        post = await POST.findById(postID);
+    } catch (err) {
+        const error = {
+            message: "Error couldn't find any post by postID",
+            code: 500
+        };
+    
+        return next(error);
+    }
     
     if(!post){
         const error = {
-            message: "Error couldn't find any posts",
+            message: "Error couldn't find any posts by postID in database",
             code: 404
-        }
-    
-        throw next(error);
-    }
+        };
+        return next(error);
+    };
      
-    return res.json({ post: post });
+    return res.json({ post: post.toObject( {getters: true}) });
 };
 
 
-export const getPostByUserId = (req: Request, res: Response, next: NextFunction)  => {
+export const getPostsByUserId = async (req: Request, res: Response, next: NextFunction)  => {
     const userID = req.params.userID;
-    const post = DUMMY_POSTS.find( p => {
-        return p.creator === userID;
-    })
+    let userWithPlaces: any;
 
-    if(!post){
+    try {
+        userWithPlaces = await USER.findById(userID).populate('posts');
+    } catch (err) {
+        const error = {
+            message: "Fetching posts by userID failed !, try again",
+            code: 500
+        };
+    
+        return next(error);
+    }
+
+    if(!userWithPlaces || userWithPlaces.length === 0){
 
         const error = {
-            message: "Error couldn't find any posts by userID",
+            message: "Error couldn't find any posts by userID in database",
             code: 404
         }
         return next(error);
     }
 
-    return res.json({ post: post });
+    return res.json({ posts: userWithPlaces.posts.map((p: { toObject: (arg0: { getters: boolean; }) => any; }) => p.toObject({getters: true})) });
 };
 
+export const createNewPost = async (req: Request, res: Response, next: NextFunction) => {
 
-export const createNewPost =  (req: Request, res: Response, next: NextFunction) => {
-    const { title, description, userID, user, postID } = req.body;
-
-    const newPost = {
-        title: title,
-        description: description,
-        userID: userID,
-        creator: user,
-        id: postID
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        const error = {
+            message: "Error invalid POST request",
+            code: 422
+        }
+        throw next(error);
     }
 
-    DUMMY_POSTS.push(newPost);
+    const { title, description, imageURL, creator } = req.body;
+
+    const newPost = new POST({
+        title: title,
+        description: description,
+        imageURL: imageURL,
+        creator: creator,
+    });
+
+    let user: any;
+    try {
+        user = await USER.findById(creator);
+    } catch (err) {
+        const error = {
+            message: "Creating new post failed, try again !",
+            code: 500
+        }
+        return next(error);
+    }
+
+    if(!user){
+        const error = {
+            message: "User couldn't be found by id !",
+            code: 404
+        };
+        return next(error);
+    }
+
+    try{
+        //FOR WEB BASED MONGO DB
+        /*
+        const session = await mongoose.startSession();
+        session.startTransaction();
+        await newPost.save({session: session});
+
+        user.posts.push(newPost); //SAVE POST INTO USER
+        await user.save({session: session});
+        await session.commitTransaction();
+        */
+
+        //FOR LOCAL MONGODB
+        await newPost.save();
+        user.posts.push(newPost); //SAVE POST INTO USER
+        await user.save();
+
+    }catch (err){
+        const error = {
+            message: "Creating new post failed in sessions, try again !",
+            code: 500
+        }
+        console.log(err);
+        return next(error);
+    }
 
     res.status(201).json({post: newPost});
 
 };
+
+
+export const deletePost = async (req: Request, res: Response, next: NextFunction) => {
+    const postID = req.params.postID;
+    let post: any;
+
+    try {
+        post = await POST.findById(postID).populate('creator');
+    } catch (err) {
+        const error = {
+            message: "Couldn't delete POST !",
+            code: 500
+        };
+    
+        return next(error);
+    }
+
+    if(!post){
+        const error = {
+            message: "Post doesn't exist, so it could not be deleted !",
+            code: 404
+        };
+    
+        return next(error);
+    }
+
+    try{
+       await post.remove();
+       post.creator.posts.pull(post);
+       await post.creator.save();
+       
+    }catch(err){
+        const error = {
+            message: "Couldn't delete POST from DATABASE!",
+            code: 500
+        };
+    
+        return next(error);
+    }
+    res.status(200).json({message: "Post deleted !"});
+}

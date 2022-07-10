@@ -1,16 +1,21 @@
-import express, { Application, ErrorRequestHandler, Response } from "express";
+import express, { Application, Response, Request, NextFunction  } from "express";
 import { errorHandler } from "./handlers/ErrorHandler";
-import { route } from './routes/routes_POSTS';
+import { route as postRoutes } from './routes/routes_POSTS';
 import bodyParser from "body-parser";
+import { route as userRoutes} from "./routes/routes_USERS";
+import * as dotenv from 'dotenv';
+import mongoose from "mongoose";
 
 const PORT: number = 8000;
 const app: Application = express();
 
 
 //*** MIDDLEWARE ***//
+dotenv.config();
 app.use(bodyParser.json());
-app.use('/api/posts', route); // => /api/posts
-app.use((req, res, next) => {
+app.use('/api/users', userRoutes); // => /api/posts
+app.use('/api/posts', postRoutes); // => /api/posts
+app.use((req: Request, res: Response, next: NextFunction) => {
     const error = {
         message: "Error couldn't find this route",
         code: 404
@@ -21,7 +26,19 @@ app.use((req, res, next) => {
 app.use(errorHandler); //ERROR HANDLING MIDDLEWARE
 
 
-//*** BEEP BOOP ***//
-app.listen(PORT, () => {
+const url = process.env.MONGO_URL;
+const options = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    family: 4 // Use IPv4, skip trying IPv6
+}
+mongoose.Promise = global.Promise;
+mongoose.connect(url!, options)
+.then(() => {console.log("Connected to MongoDB")})
+.catch((err) => console.log(err));
+
+
+ //*** BEEP BOOP ***//
+ app.listen(PORT, () => {
     console.log(`Your server available at http://localhost:${PORT}`);
 })
