@@ -1,12 +1,15 @@
 export interface PostsProps{
-    places: Post[]
+    posts: Post[]
 }
 
 export interface Post{
-    user: string,
-    postID: number,
+    creator_id: string,
+    creator_name: string,
+    id: number,
     image?: string,
-    placeName: string,
-    placeLocation: string,
+    title: string,
+    description: string,
+    created_at: string,
+    
 }
 

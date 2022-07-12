@@ -5,6 +5,7 @@ import UserIListtem from './User_Item';
 
 const UsersList = ( { users } : UserListProps ) => {
 
+
     if(!users?.length){
         return(
             <div className='usersList'>
@@ -14,16 +15,17 @@ const UsersList = ( { users } : UserListProps ) => {
     }
 
     return(
+
         <div className='usersList'>
             <h1>Users</h1>
-            {users.map(({user,id,image,placeName,placeCount}) => (
+            {users.map(({username, image}) => (
                 <UserIListtem 
-                    user={user} 
-                    id={id} 
+                    username={username} 
                     image={image} 
-                    placeName={placeName} 
-                    placeCount={placeCount}/> 
-            ))}
+                    key={username}
+                    /> 
+            ))
+            }
         </div>
     );
   

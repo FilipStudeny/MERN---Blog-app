@@ -13,6 +13,17 @@ const app: Application = express();
 //*** MIDDLEWARE ***//
 dotenv.config();
 app.use(bodyParser.json());
+app.use((req: Request, res: Response, next: NextFunction) => {
+    
+    //CORS FIX
+    //ADD HEADER TO REQUREESTS
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE');
+    
+    next();
+});
+
 app.use('/api/users', userRoutes); // => /api/posts
 app.use('/api/posts', postRoutes); // => /api/posts
 app.use((req: Request, res: Response, next: NextFunction) => {

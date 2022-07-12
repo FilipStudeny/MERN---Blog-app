@@ -78,13 +78,14 @@ export const createNewPost = async (req: Request, res: Response, next: NextFunct
         throw next(error);
     }
 
-    const { title, description, imageURL, creator } = req.body;
+    const { title, description, imageURL, creator, creator_name } = req.body;
 
     const newPost = new POST({
         title: title,
         description: description,
         imageURL: imageURL,
-        creator: creator,
+        creator_id: creator,
+        creator_name: creator_name,
     });
 
     let user: any;

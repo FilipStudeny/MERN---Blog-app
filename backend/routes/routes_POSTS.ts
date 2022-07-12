@@ -10,7 +10,7 @@ route.get('/user/:userID', getPostsByUserId);
 
 route.post('/', [
     check('title').not().isEmpty(),
-    check('description').isLength({min: 1}),
+    check('description').not().isEmpty(),
     check('creator').not().isEmpty()
 ], 
     createNewPost);

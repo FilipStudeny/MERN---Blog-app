@@ -4,10 +4,9 @@ import { PostsProps } from './props/props_Post'
 import '../styles/placesList.css'
 
 
-const PostsList = ({ places } : PostsProps) => {
+const PostsList = ({ posts } : PostsProps) => {
 
-
-    if(!places?.length){
+    if(!posts?.length){
         return(
             <div className='placesList'>
                 <h1>No places Found !</h1>
@@ -18,13 +17,14 @@ const PostsList = ({ places } : PostsProps) => {
     return(
         <div className='placesList'>
             <h1>Posts</h1>
-            {places.map(({user, postID, image , placeName, placeLocation}) => (
+            {posts.map(({ creator_id, creator_name, title, id, description }) => (
                 <PostItem 
-                    user={user} 
-                    postID={postID} 
-                    image={image} 
-                    placeName={placeName} 
-                    placeLocation={placeLocation}/> 
+                    creator_id={creator_id}
+                    creator_name={creator_name}
+                    title={title}
+                    description={description}
+                    id={id} created_at={''}                    
+                    /> 
             ))}
         </div>
     );

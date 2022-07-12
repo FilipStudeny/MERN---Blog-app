@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Backdrop from './Backdrop';
 import { modalProps } from '../props/props_modal';
 
-const ModalOverlay = ({title, onCancel, children, onHandleSubmit, formData } : modalProps) => {
+const ModalOverlay = ({title, onCancel, children } : modalProps) => {
 
     const content = (
         <>
@@ -14,7 +14,7 @@ const ModalOverlay = ({title, onCancel, children, onHandleSubmit, formData } : m
             </div>
             {children}
             <div className='modal_footer'>
-                
+
             </div>
         </div>
         </>

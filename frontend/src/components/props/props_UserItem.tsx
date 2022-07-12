@@ -4,10 +4,6 @@ export interface UserListProps{
 
 
 export default interface User {
-    user: string,
-    id: number,
+    username: string,
     image: string,
-    placeCount: number,
-    placeName: string
-
 }

@@ -11,13 +11,14 @@ import Input from './form/Input';
 
 import { useForm } from './hooks/form_hook'
 import context_auth from './context/context_auth';
+import useHttpRequest from './hooks/htpp_hook';
 
 
 function NavBar() {
 
   const auth = useContext(context_auth);
 
-    const [formState, inputHandler] = useForm(
+    const [newPostFormState, formInputHandler] = useForm(
       {
       title: {
         value: '',
@@ -60,6 +61,8 @@ function NavBar() {
     const [showModal, setShowModal] = useState(false);
     const [showLoginModal, setLoginModal] = useState(false);
     const [showRegisterModal, setRegisterModal] = useState(false);
+    const { isLoading, error, sendRequest, clearError } = useHttpRequest();
+  
 
     const openModal = (event: any, whichModal: string) =>  {
 
@@ -84,38 +87,96 @@ function NavBar() {
       switch (whichModal) {
         case 'POST':
           setShowModal(false);
+          errorHandle();
           break;
 
         case 'LOGIN':
           setLoginModal(false);
+          errorHandle();
           break;
 
         case 'REGISTER':
           setRegisterModal(false);
+          errorHandle();
           break;
       }
     }
 
-    const onSubmit = (whichForm: any) => (event: any) => {
+    const onSubmit = (whichForm: any) => async (event: any) => {
       event.preventDefault();
 
       switch (whichForm) {
         case 'POST':
-          console.log(formState.inputs)
-          closeModal(event, 'POST');
-          break;
+          try {
+            const headers = {
+              'Content-Type': 'application/json',
+            };
 
+            const body = JSON.stringify({
+              title: newPostFormState.inputs.title.value,
+              description: newPostFormState.inputs.textarea.value,
+              imageURL: "image 1",
+              creator: '62cd5b1bf2a39582f96ad500',
+              creator_name: 'bogo'
+              
+            })
+
+            const url: string = 'http://localhost:8000/api/posts/';
+            await sendRequest(url, 'POST', body, headers );
+            
+            closeModal(event, 'POST');
+
+
+          } catch (err) { 
+          } 
+          
+          break;
+         
         case 'LOGIN':
-          console.log(loginFormState.inputs)
-          auth.login();
-          closeModal(event, 'LOGIN');
+          try {
+            const headers = {
+              'Content-Type': 'application/json',
+            };
+
+            const body = JSON.stringify({
+              email: loginFormState.inputs.email_form.value,
+              password: loginFormState.inputs.password_form.value
+            })
+
+            const url: string = 'http://localhost:8000/api/users/login';
+            await sendRequest(url, 'POST', body, headers );
+
+            auth.login();
+            closeModal(event, 'LOGIN');
+          } catch (err) { } 
           break;
         
         case 'REGISTER':
-          console.log(registerFormState.inputs)
-          closeModal(event, 'REGISTER');
+          try {
+            const headers = {
+              'Content-Type': 'application/json',
+            };
+
+            const body = JSON.stringify({
+              username: registerFormState.inputs.username_form.value,
+              email: registerFormState.inputs.email_form.value,
+              password: registerFormState.inputs.password_form.value
+            })
+
+            const url: string = 'http://localhost:8000/api/users/register';
+            await sendRequest(url, 'POST', body, headers );
+
+            auth.login();
+            closeModal(event, 'REGISTER');
+          } catch (err) {
+            
+          } 
           break;
       }
+    }
+
+    const errorHandle = () => {
+      clearError();
     }
 
   return (
@@ -128,12 +189,12 @@ function NavBar() {
             <Input title='Input' element='INPUT' id='title' inputType='INPUT' 
                     placeHolderText='text' errorText='ERROR INPUT IS EMPTY' 
                     validators={[VALIDATOR_REQUIRE()]} 
-                    onInput={inputHandler}
+                    onInput={formInputHandler}
             />
             <Input title='Description' element='textarea' id='textarea' 
                     inputType='INPUT' placeHolderText='text' errorText='ERROR DESCRIPTION IS EMPTY' 
                     validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(5)]} 
-                    onInput={inputHandler}
+                    onInput={formInputHandler}
             />
 
             <Button 
@@ -142,7 +203,7 @@ function NavBar() {
                 classname_disabled='button_submit_disabled' 
                 type='submit'
                 label='Create new post' 
-                disabled={!formState.isValid} 
+                disabled={!newPostFormState.isValid} 
                 
             />
           </Form>
@@ -174,6 +235,12 @@ function NavBar() {
                 label='Create new post' 
                 disabled={!loginFormState.isValid} 
               />
+
+              <>
+              { isLoading && 
+                <h1>Loading...</h1>
+              }
+              </>
           </Form>
           </>
         </Modal>
@@ -209,6 +276,12 @@ function NavBar() {
                 label='Create new post' 
                 disabled={!registerFormState.isValid} 
               />
+
+              <>
+              { isLoading && 
+                <h1>Loading...</h1>
+              }
+              </>
           </Form>
           </>
         </Modal>
@@ -217,7 +290,7 @@ function NavBar() {
     <div className='navBar'>
         <div>
             <Link className='pageHeader_UserImg' to='/myplaces'>
-                <img src='https://icon-library.com/images/no-profile-pic-icon/no-profile-pic-icon-11.jpg' alt='profile pic'></img>
+                <img src='' alt='profile pic'></img>
             </Link>
         </div>
         <nav>

@@ -2,13 +2,12 @@ import { Link } from 'react-router-dom';
 import User from './props/props_UserItem';
 
 
-const UserIListtem = ({ user, id, image, placeCount, placeName }: User) => {
+const UserIListtem = ({ username, image }: User) => {
   return (
-      <Link className='usersList_Item' to={`/${user}/posts`}>
-        <img className='UsersList_ItemImage' src={image} alt={placeName}/>
+      <Link className='usersList_Item' to={`/${username}/posts`}>
+        <img className='UsersList_ItemImage' src={image} alt={image}/>
         <div className='usersList_Data'>
-            <h2>{user}</h2>
-            <h3>Places visited: {placeCount}</h3>
+            <h2>{username}</h2>
         </div>
       </Link>
 
