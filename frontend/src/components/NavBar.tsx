@@ -299,7 +299,7 @@ function NavBar() {
             { auth.isLoggedIn && 
               <>
                 <Link to='#' onClick={(e) => { openModal(e, 'POST') }} >New post</Link>
-                <Link to='/myplaces'>My places</Link>
+                <Link to='#'>My places</Link>
               </>
             }
             

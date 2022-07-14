@@ -143,8 +143,9 @@ export const deletePost = async (req: Request, res: Response, next: NextFunction
     let post: any;
 
     try {
-        post = await POST.findById(postID).populate('creator');
-    } catch (err) {
+        post = await POST.findById(postID).populate('creator_id');
+    } catch (err: any) {
+        console.log(err.message)
         const error = {
             message: "Couldn't delete POST !",
             code: 500
