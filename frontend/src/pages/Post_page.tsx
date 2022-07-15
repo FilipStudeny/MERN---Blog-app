@@ -7,8 +7,7 @@ import Button from '../components/form/Button';
 import Form from '../components/form/Form';
 import useHttpRequest from '../components/hooks/htpp_hook';
 import Modal from '../components/modal/Modal';
-import '../styles/pageHeader.css';
-import '../styles/post.css';
+
 
 
 
@@ -18,7 +17,6 @@ const Post_page = () => {
   
   const { isLoading, error, sendRequest, clearError } = useHttpRequest();
   const [showModal, setShowModal] = useState(false);
-  const [fetchPost, setFetchPost] = useState(true);
   const userID = useParams().id;
 
   const [title, setTitle] = useState();
@@ -36,44 +34,33 @@ const Post_page = () => {
   }
   const onSubmit = async (event: any) => {
     event.preventDefault();
-    console.log("aaaaaaaaaaaaa");
+    
     try {
       const url: string = `http://localhost:8000/api/posts/${postID}`;
       await sendRequest(url, 'DELETE');
       closeModal(event);
+      navigate(`/${creator_name}/posts`);
 
-    } catch (err: any) {
-      console.log(err.message)
-      navigate('/');
-
-    }
+    } catch (err: any) {}
   }
   
   useEffect(() => {
     const fetchPosts = async () => {
 
-      if(fetchPost){
-        try {
-
-          const url: string = `http://localhost:8000/api/posts/${userID}`;
-          const responseData = await sendRequest(url);
+      try {
+        const url: string = `http://localhost:8000/api/posts/${userID}`;
+        const responseData = await sendRequest(url);
   
-         console.log(responseData.post);
-         const data = responseData.post;
+        console.log(responseData.post);
+        const data = responseData.post;
   
-         setTitle(data.title);
-         setDescription(data.description);
-         setPostId(data.id);
-         const timeOfCreation = new Date(data.createdAt).toDateString();
-         setCreationTime(timeOfCreation);
-         setCreatorName(data.creator_name);
-         setFetchPost(false);
+        setTitle(data.title);
+        setDescription(data.description);
+        setPostId(data.id);
+        setCreationTime(new Date(data.createdAt).toDateString());
+        setCreatorName(data.creator_name);
 
-        } catch (err) {
-
-         }
-      }
-      
+      } catch (err) {}
     }
 
     fetchPosts();

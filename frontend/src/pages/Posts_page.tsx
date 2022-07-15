@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
 import useHttpRequest from '../components/hooks/htpp_hook';
-import PostsList from '../components/Posts_List';
+import List from '../components/List';
 
 const Posts_page = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpRequest();
@@ -18,11 +17,10 @@ const Posts_page = () => {
           const responseData = await sendRequest(url);
           setPosts(responseData.posts);
 
-          
         } catch (err) { }}
 
         fetchPosts();
-    }, []);
+    }, [sendRequest]);
      
   return (
     <>
@@ -31,7 +29,7 @@ const Posts_page = () => {
 
       }
       { !isLoading && loadedPosts &&
-        <PostsList posts={loadedPosts}/>
+        <List posts={loadedPosts} whichList={'POSTS'}/>
       }
     </>
   )

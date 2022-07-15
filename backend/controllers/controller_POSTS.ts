@@ -165,8 +165,8 @@ export const deletePost = async (req: Request, res: Response, next: NextFunction
 
     try{
        await post.remove();
-       post.creator.posts.pull(post);
-       await post.creator.save();
+       post.creator_id.posts.pull(post);
+       await post.creator_id.save();
        
     }catch(err){
         const error = {

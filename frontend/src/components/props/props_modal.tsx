@@ -6,7 +6,6 @@ export interface modalProps{
     onHandleSubmit?: any,
     title?: string,
 
-
     formData?: {},
 }
 

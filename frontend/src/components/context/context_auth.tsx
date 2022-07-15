@@ -4,7 +4,9 @@ import { useNavigate } from 'react-router-dom'
 
 const context_auth = createContext({
     isLoggedIn: false,
-    login: () => {
+    userId: null,
+    username: null,
+    login: (userID: any,  username: any) => {
         
     },
     loggout: () => {

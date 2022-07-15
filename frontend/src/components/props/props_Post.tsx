@@ -1,8 +1,4 @@
-export interface PostsProps{
-    posts: Post[]
-}
-
-export interface Post{
+export default interface Post{
     creator_id: string,
     creator_name: string,
     id: number,

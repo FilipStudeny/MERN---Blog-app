@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { Post } from './props/props_Post'
+import Post  from './props/props_Post'
 import context_auth from './context/context_auth';
 
 
@@ -18,9 +18,9 @@ const PostItem = ( { creator_id, creator_name, id, title, description, image } :
   
   
   return (
-    <div className='postsList_Item'>
-      <Link className='postList_Item_Link' to={`/${creator_name}/post/${id}`}>
-        <div className='postList_Item_header'>
+    <div className='list_Item'>
+      <Link className='list_Item_Link' to={`/${creator_name}/post/${id}`}>
+        <div className='list_Item_header'>
           <div className='post_User_image'></div>
           <div>
             <h2 className='post_List_Item_authorname'>{creator_name}</h2>

@@ -1,4 +1,4 @@
-.placesList{
+.list{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -8,7 +8,7 @@
     padding: 15px 15px 15px 15px;
 }
 
-.placesList h1{
+.list h1{
     color: rgb(63, 63, 63);
     font-size: 30px;
     
@@ -18,7 +18,7 @@
 }
 
 
-.postsList_Item{
+.list_Item{
     height: auto;
     width: 80%;
 
@@ -35,11 +35,11 @@
     overflow: hidden;
 }
 
-.postList_Item_Link{
+.list_Item_Link{
     text-decoration: none;
 }
 
-.postList_Item_header{
+.list_Item_header{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -114,3 +114,53 @@
     color: grey;
     font-size: 18px;
 }
+
+
+.usersList h1{
+    color: rgb(63, 63, 63);
+    font-size: 30px;
+    
+    text-align: center;
+    width: 100%;
+    border-bottom: 2px solid rgb(63, 63, 63);
+}
+
+.user_List_Item{
+    background-color: rgb(95, 123, 216);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    border-radius: 10px;
+
+    width: 350px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 10px 10px 10px 10px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    text-decoration: none;
+}
+
+.user_List_profile_picture{
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    border: 3px solid rgb(194, 194, 194);
+}
+
+.user_List_data{
+    margin-left: 15px;
+}
+
+.user_List_data h2{
+    color: whitesmoke;
+    font-size: 35px;
+}
+
+.user_List_data h3{
+    color: whitesmoke;
+    font-size: 20px;
+}
+

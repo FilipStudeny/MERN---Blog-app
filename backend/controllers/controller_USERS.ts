@@ -90,5 +90,5 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
         return next(error);
     }
 
-    return res.json({message: "loged In !"});
+    return res.json({message: "loged In !", user: existingUser.toObject({ getters: true} )});
 };

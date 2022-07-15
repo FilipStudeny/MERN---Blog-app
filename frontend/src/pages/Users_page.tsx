@@ -1,19 +1,15 @@
 import { useEffect, useState } from 'react';
 import useHttpRequest from '../components/hooks/htpp_hook';
-import UsersList from '../components/Users_List';
-import UserIListtem from '../components/User_Item';
-
-import '../styles/usersList.css'
+import List from '../components/List';
 
 const Users_page = () => {
 
     
-    const [users, setUsers] = useState([]);
+    const [loadedUsers, setUsers] = useState([]);
     const { isLoading, error, sendRequest, clearError } = useHttpRequest();
 
-    
-    useEffect(() => {
 
+    useEffect(() => {
         const fetchUsers = async () => {
             try {
                 const url: string = 'http://localhost:8000/api/users/';
@@ -26,7 +22,7 @@ const Users_page = () => {
 
         fetchUsers();
     }, [sendRequest]);
-    console.log(users);
+
     return (
         <>
             { isLoading &&
@@ -34,7 +30,7 @@ const Users_page = () => {
             }
 
             { !isLoading &&
-             <UsersList users={users} />
+                <List users={loadedUsers} whichList='USERS' />
             }
         </>
       )

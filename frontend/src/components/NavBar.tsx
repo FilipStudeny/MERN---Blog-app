@@ -1,8 +1,6 @@
 import React, { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { VALIDATOR_EMAIL, VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from './validators';
-
-import '../styles/pageHeader.css'
 
 import Form from './form/Form';
 import Modal from './modal/Modal';
@@ -62,7 +60,7 @@ function NavBar() {
     const [showLoginModal, setLoginModal] = useState(false);
     const [showRegisterModal, setRegisterModal] = useState(false);
     const { isLoading, error, sendRequest, clearError } = useHttpRequest();
-  
+    const navigate = useNavigate();
 
     const openModal = (event: any, whichModal: string) =>  {
 
@@ -125,6 +123,7 @@ function NavBar() {
             await sendRequest(url, 'POST', body, headers );
             
             closeModal(event, 'POST');
+            navigate('/');
 
 
           } catch (err) { 
@@ -144,10 +143,11 @@ function NavBar() {
             })
 
             const url: string = 'http://localhost:8000/api/users/login';
-            await sendRequest(url, 'POST', body, headers );
+            const response = await sendRequest(url, 'POST', body, headers );
 
-            auth.login();
+            auth.login(response.user.id, response.user.username);
             closeModal(event, 'LOGIN');
+            
           } catch (err) { } 
           break;
         
@@ -164,9 +164,10 @@ function NavBar() {
             })
 
             const url: string = 'http://localhost:8000/api/users/register';
-            await sendRequest(url, 'POST', body, headers );
+            const response = await sendRequest(url, 'POST', body, headers );
 
-            auth.login();
+            auth.login(response.user.id, response.user.username);
+
             closeModal(event, 'REGISTER');
           } catch (err) {
             
@@ -289,9 +290,18 @@ function NavBar() {
 
     <div className='navBar'>
         <div>
+          { auth.isLoggedIn &&
+          <>
             <Link className='pageHeader_UserImg' to='/myplaces'>
-                <img src='' alt='profile pic'></img>
+              <img src='' alt='profile pic'></img>
             </Link>
+
+            <p>{auth.userId}</p>
+            <p>{auth.username}</p>
+          </>
+
+          }
+            
         </div>
         <nav>
             <Link to='/'>Home</Link>
@@ -299,7 +309,7 @@ function NavBar() {
             { auth.isLoggedIn && 
               <>
                 <Link to='#' onClick={(e) => { openModal(e, 'POST') }} >New post</Link>
-                <Link to='#'>My places</Link>
+                <Link to={'/'+ auth.username + '/posts'}>My places</Link>
               </>
             }
             
