@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import context_auth from '../components/context/context_auth';
 import useHttpRequest from '../components/hooks/htpp_hook';
 import List from '../components/List';
 
 const Posts_page = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpRequest();
   const [loadedPosts, setPosts] = useState([]);
-
-  const ID = '62cd5b1bf2a39582f96ad500';
+  const auth = useContext(context_auth);
 
     useEffect(() => {
 
       const fetchPosts = async () => {
         try {
 
-          const url: string = `http://localhost:8000/api/posts/user/${ID}`;
+          const url: string = `http://localhost:8000/api/posts/user/${auth.userId}`;
           const responseData = await sendRequest(url);
           setPosts(responseData.posts);
 

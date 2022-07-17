@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import { route as userRoutes} from "./routes/routes_USERS";
 import * as dotenv from 'dotenv';
 import mongoose from "mongoose";
+import multer from "multer";
 
 const PORT: number = 8000;
 const app: Application = express();

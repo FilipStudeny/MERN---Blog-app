@@ -3,6 +3,8 @@ import { validationResult } from 'express-validator';
 import { POST } from "../models/model_Post";
 import { USER } from "../models/model_User";
 
+const PORT: number = 8000;
+
 export const getPosts = (req: Request, res: Response, next: NextFunction) => {
 
     const error = {
@@ -78,19 +80,19 @@ export const createNewPost = async (req: Request, res: Response, next: NextFunct
         throw next(error);
     }
 
-    const { title, description, imageURL, creator, creator_name } = req.body;
+    const { title, description, creator_id, creator_name } = req.body;
 
     const newPost = new POST({
         title: title,
         description: description,
-        imageURL: imageURL,
-        creator_id: creator,
+        image: req.file?.path,
+        creator_id: creator_id,
         creator_name: creator_name,
     });
 
     let user: any;
     try {
-        user = await USER.findById(creator);
+        user = await USER.findById(creator_id);
     } catch (err) {
         const error = {
             message: "Creating new post failed, try again !",

@@ -10,6 +10,7 @@ import Input from './form/Input';
 import { useForm } from './hooks/form_hook'
 import context_auth from './context/context_auth';
 import useHttpRequest from './hooks/htpp_hook';
+import ImageUpload from './form/ImageUpload';
 
 
 function NavBar() {
@@ -26,6 +27,10 @@ function NavBar() {
         value: '',
         isValid: false
       },
+      image:{
+        value: '',
+        isValid: false
+      }
       }, [])
 
     const [loginFormState, loginInputHandler] = useForm(
@@ -37,7 +42,7 @@ function NavBar() {
         password_form: {
           value: '',
           isValid: false
-        },
+        }
       }, [])
 
     const [registerFormState, registerInputHandler] = useForm(
@@ -67,6 +72,7 @@ function NavBar() {
       switch (whichModal) {
         case 'POST':
           setShowModal(true);
+
           break;
 
         case 'LOGIN':
@@ -106,21 +112,16 @@ function NavBar() {
       switch (whichForm) {
         case 'POST':
           try {
-            const headers = {
-              'Content-Type': 'application/json',
-            };
 
-            const body = JSON.stringify({
-              title: newPostFormState.inputs.title.value,
-              description: newPostFormState.inputs.textarea.value,
-              imageURL: "image 1",
-              creator: '62cd5b1bf2a39582f96ad500',
-              creator_name: 'bogo'
-              
-            })
+            const formData = new FormData();
+            formData.append('title', newPostFormState.inputs.title.value );
+            formData.append('description', newPostFormState.inputs.textarea.value);
+            formData.append('image', newPostFormState.inputs.image.value );
+            formData.append('creator_id', '62d4372b9fc7c8baa18c0167');
+            formData.append('creator_name', 'bogo');
 
             const url: string = 'http://localhost:8000/api/posts/';
-            await sendRequest(url, 'POST', body, headers );
+            await sendRequest(url, 'POST', formData );
             
             closeModal(event, 'POST');
             navigate('/');
@@ -197,6 +198,8 @@ function NavBar() {
                     validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(5)]} 
                     onInput={formInputHandler}
             />
+
+            <ImageUpload id='image' onInput={formInputHandler} />
 
             <Button 
                 classname='button_submit' 
@@ -296,7 +299,6 @@ function NavBar() {
               <img src='' alt='profile pic'></img>
             </Link>
 
-            <p>{auth.userId}</p>
             <p>{auth.username}</p>
           </>
 

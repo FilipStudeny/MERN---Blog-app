@@ -71,12 +71,34 @@
     outline: 2px solid rgb(95, 123, 216);
 }
 
+.form_image_preview_container{
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    padding: 10px 10px 10px 10px;
+    border-radius: 10px;
+    text-align: center;
+}
 
 .button_submit{
     margin-top: 10px;
     margin-bottom: 20px;
 
     width: 95%;
+    height: auto;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    padding: 10px 10px 10px 10px;
+    border-radius: 10px;
+
+    color: whitesmoke;
+    font-size: 30px;
+    text-align: center;
+}
+
+.button_image_upload{
+    margin-top: 10px;
+    margin-bottom: 20px;
+
+    width: 100%;
     height: auto;
 
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);

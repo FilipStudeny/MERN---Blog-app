@@ -24,6 +24,7 @@ const Post_page = () => {
   const [description, setDescription] = useState();
   const [creator_name, setCreatorName] = useState();
   const [creationTime, setCreationTime] = useState('');
+  const [image, setPostImage] = useState('');
 
   const navigate = useNavigate();
   const openModal = (event: any) =>  {
@@ -59,6 +60,7 @@ const Post_page = () => {
         setPostId(data.id);
         setCreationTime(new Date(data.createdAt).toDateString());
         setCreatorName(data.creator_name);
+        setPostImage(data.image);
 
       } catch (err) {}
     }
@@ -116,7 +118,7 @@ const Post_page = () => {
                 {description}
               </p>    
             </div>
-            <img  className='post_postimage'  alt='asdasd' />
+            <img  className='post_postimage' src={`http://localhost:8000/${image}`} alt='asdasd' />
           </div>
           <div className='post_footer'>
             <p>Time of creation: {creationTime}</p>

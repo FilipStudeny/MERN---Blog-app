@@ -25,7 +25,12 @@ export interface ButtonProps{
     classname: string
     classname_enabled: string,
     classname_disabled: string,
-    
+}
+
+export interface ImageUploadProps{
+    id: string,
+    onInput?: any,
+
 }
 
 
