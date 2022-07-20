@@ -37,8 +37,12 @@ const Post_page = () => {
     event.preventDefault();
     
     try {
+      const headers: any = {
+        Authorization: 'Bearer ' + auth.token
+      };
+
       const url: string = `http://localhost:8000/api/posts/${postID}`;
-      await sendRequest(url, 'DELETE');
+      await sendRequest(url, 'DELETE', '', headers);
       closeModal(event);
       navigate(`/${creator_name}/posts`);
 
@@ -86,9 +90,7 @@ const Post_page = () => {
                 classname_disabled='button_submit_disabled' 
                 type='submit'
                 label='Delete' 
-      
               />
-              <Link onClick={onSubmit} to={`/${creator_name}/posts`}  >REDIRECT</Link>
           </Form>
         </>
         
@@ -118,7 +120,9 @@ const Post_page = () => {
                 {description}
               </p>    
             </div>
-            <img  className='post_postimage' src={`http://localhost:8000/${image}`} alt='asdasd' />
+            <div className='post_image_container'>
+              <img  className='post_postimage' src={`http://localhost:8000/${image}`} alt='asdasd' />
+            </div>
           </div>
           <div className='post_footer'>
             <p>Time of creation: {creationTime}</p>

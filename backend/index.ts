@@ -6,6 +6,7 @@ import { route as userRoutes} from "./routes/routes_USERS";
 import * as dotenv from 'dotenv';
 import mongoose from "mongoose";
 import multer from "multer";
+import path from "path";
 
 const PORT: number = 8000;
 const app: Application = express();
@@ -14,6 +15,7 @@ const app: Application = express();
 //*** MIDDLEWARE ***//
 dotenv.config();
 app.use(bodyParser.json());
+app.use('/uploads', express.static(path.join('uploads')));
 app.use((req: Request, res: Response, next: NextFunction) => {
     
     //CORS FIX

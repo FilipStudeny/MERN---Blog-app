@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { validationResult } from 'express-validator';
 import { POST } from "../models/model_Post";
 import { USER } from "../models/model_User";
+import fs from 'fs';
 
 const PORT: number = 8000;
 
@@ -81,11 +82,10 @@ export const createNewPost = async (req: Request, res: Response, next: NextFunct
     }
 
     const { title, description, creator_id, creator_name } = req.body;
-
     const newPost = new POST({
         title: title,
         description: description,
-        image: req.file?.path,
+        image: req.file?.path, //files
         creator_id: creator_id,
         creator_name: creator_name,
     });
@@ -128,19 +128,18 @@ export const createNewPost = async (req: Request, res: Response, next: NextFunct
 
     }catch (err){
         const error = {
-            message: "Creating new post failed in sessions, try again !",
+            message: "Creating new post failed, try again !",
             code: 500
         }
         console.log(err);
         return next(error);
     }
 
-    res.status(201).json({post: newPost});
-
+    res.status(201).json({message: 'Post created'});
 };
 
 
-export const deletePost = async (req: Request, res: Response, next: NextFunction) => {
+export const deletePost = async (req: any, res: Response, next: NextFunction) => {
     const postID = req.params.postID;
     let post: any;
 
@@ -165,6 +164,18 @@ export const deletePost = async (req: Request, res: Response, next: NextFunction
         return next(error);
     }
 
+    //DELETE POST BY ONLY IF USER GIVES TOKEN
+    if(post.creator_id._id.toString() !== req.userData.creator_id){
+        const error = {
+            message: "You are not allowed to delete this place",
+            code: 401
+        };
+    
+        return next(error);
+    }
+
+    const imagePath = post.image;
+
     try{
        await post.remove();
        post.creator_id.posts.pull(post);
@@ -178,5 +189,10 @@ export const deletePost = async (req: Request, res: Response, next: NextFunction
     
         return next(error);
     }
+
+    fs.unlink(imagePath, err => {
+        console.log(err);
+    });
+
     res.status(200).json({message: "Post deleted !"});
 }

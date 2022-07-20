@@ -117,11 +117,16 @@ function NavBar() {
             formData.append('title', newPostFormState.inputs.title.value );
             formData.append('description', newPostFormState.inputs.textarea.value);
             formData.append('image', newPostFormState.inputs.image.value );
-            formData.append('creator_id', '62d4372b9fc7c8baa18c0167');
-            formData.append('creator_name', 'bogo');
+            formData.append('creator_id', auth.userId);
+            formData.append('creator_name', auth.username);
 
             const url: string = 'http://localhost:8000/api/posts/';
-            await sendRequest(url, 'POST', formData );
+
+            const headers: any = {
+              Authorization: 'Bearer ' + auth.token
+            };
+
+            await sendRequest(url, 'POST', formData, headers);
             
             closeModal(event, 'POST');
             navigate('/');
@@ -146,7 +151,7 @@ function NavBar() {
             const url: string = 'http://localhost:8000/api/users/login';
             const response = await sendRequest(url, 'POST', body, headers );
 
-            auth.login(response.user.id, response.user.username);
+            auth.login(response.userID, response.token, response.username);
             closeModal(event, 'LOGIN');
             
           } catch (err) { } 
@@ -167,9 +172,9 @@ function NavBar() {
             const url: string = 'http://localhost:8000/api/users/register';
             const response = await sendRequest(url, 'POST', body, headers );
 
-            auth.login(response.user.id, response.user.username);
-
+            auth.login(response.userID, response.token, response.username);
             closeModal(event, 'REGISTER');
+            
           } catch (err) {
             
           } 
@@ -300,6 +305,7 @@ function NavBar() {
             </Link>
 
             <p>{auth.username}</p>
+            <p>{auth.userId}</p>
           </>
 
           }

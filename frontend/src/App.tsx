@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import NavBar from './components/NavBar';
 
@@ -17,34 +17,64 @@ import Users_page from './pages/Users_page';
 import Post_page  from './pages/Post_page';
 import List from './components/List';
 
+
+let logoutTimer: any;
+
+
 function App() {
 
-  const [isLoggedIn, setLoogedIn] = useState(false);
   const [userID, setUserID] = useState<any>();
   const [username, setUserName] = useState<any>();
+  const [token, setToken] = useState<any>();
+  const [tokenExpirationDate, setTokenExpirationDate] = useState<any>();
 
-  const login = useCallback((userID: any, username: any) => {
+  
+  const login = useCallback((userID: any, token: any, username: any, expirationDate: any) => {
     setUserID(userID);
     setUserName(username);
-    setLoogedIn(true);
+    setToken(token);
 
-    console.log(username);
-    console.log(userID);
+    const tokenExpirationDate = expirationDate ||  new Date(new Date().getTime() + 1000 * 60 * 60);
+    setTokenExpirationDate(tokenExpirationDate);
+
+    localStorage.setItem('userData', JSON.stringify({
+      userID: userID,
+      username: username,
+      token: token,
+      tokenExpirationData: tokenExpirationDate.toISOString()
+    }));
 
   },[])
 
-  const loggout = useCallback(() => {
-    setLoogedIn(false);
+  const logout = useCallback(() => {
     setUserID(null);
     setUserName(null);
-
-    console.log(username);
-    console.log(userID);
+    setToken(null);
+    setTokenExpirationDate(null);
+    localStorage.removeItem('userData');
   },[])
 
+  useEffect(() => {
+    if (token && tokenExpirationDate){
+
+      const remainingTime = tokenExpirationDate.getTime() - new Date().getTime() ;
+      logoutTimer = setTimeout(logout, remainingTime);
+    }else{
+      clearTimeout(logoutTimer);
+    }
+  }, [token, logout, tokenExpirationDate])
+
+  useEffect(() => {
+    const storedData: any = JSON.parse(localStorage.getItem('userData') || '{}' );
+  
+    if (storedData && storedData.token && new Date(storedData.tokenExpirationData) > new Date()){
+      login(storedData.userID, storedData.token, storedData.username, new Date(storedData.tokenExpirationData));
+    }
+
+  }, [login]);
 
   return (
-    <context_auth.Provider value={{isLoggedIn: isLoggedIn, userId: userID, username: username, login: login, loggout: loggout}}>
+    <context_auth.Provider value={{isLoggedIn: !!token, userId: userID, username: username, login: login, loggout: logout, token: token}}>
 
     <div className='pageBody'>
         <Router>

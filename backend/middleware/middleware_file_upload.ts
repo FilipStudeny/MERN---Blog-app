@@ -8,7 +8,7 @@ const MIME_TYPE_MAP: any = {
 }
 
 export const fileUpload = multer({
-    limits: {fileSize: 500000},
+    limits: {fileSize: 5000000},
     storage: multer.diskStorage({
         destination: (req: any, file: any, callback: any) => {
             callback(null, 'uploads')
