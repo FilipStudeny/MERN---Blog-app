@@ -31,7 +31,7 @@ export const registerUser = async (req: Request, res: Response, next: NextFuncti
         return next(error);
     }
 
-    const { username, email, password, user_image } = req.body;
+    const { username, email, password } = req.body;
     let existingUser: any;
 
     try {
@@ -67,7 +67,7 @@ export const registerUser = async (req: Request, res: Response, next: NextFuncti
         username: username,
         email: email,
         password: hashedPasswd,
-        user_image: user_image,
+        user_image: req.file?.path,
         posts: [],
     });
 
@@ -102,7 +102,7 @@ export const registerUser = async (req: Request, res: Response, next: NextFuncti
         return next(error);
     }
 
-    res.status(201).json({userID: newUser.id, username: newUser.username, token: 'asdasdasdasda'});
+    res.status(201).json({userID: newUser.id, username: newUser.username, token: token, image: newUser.user_image});
 };
 
 export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -167,5 +167,5 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
         return next(error);
     }
 
-    return res.json({userID: existingUser.id, username: existingUser.username, token: token});
+    return res.json({userID: existingUser.id, username: existingUser.username, token: token, image: existingUser.user_image});
 };

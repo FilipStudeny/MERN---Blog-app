@@ -60,11 +60,17 @@ function NavBar() {
             value: '',
             isValid: false
         },
+        image: {
+          value: '',
+          isValid: false
+        }
       }, [])
 
     const [showModal, setShowModal] = useState(false);
     const [showLoginModal, setLoginModal] = useState(false);
     const [showRegisterModal, setRegisterModal] = useState(false);
+    const [userImage, setUserImage] = useState('');
+
     const { isLoading, error, sendRequest, clearError } = useHttpRequest();
     const navigate = useNavigate();
 
@@ -93,6 +99,7 @@ function NavBar() {
         case 'POST':
           setShowModal(false);
           errorHandle();
+          console.log(userImage);
           break;
 
         case 'LOGIN':
@@ -154,6 +161,7 @@ function NavBar() {
             const url: string = 'http://localhost:8000/api/users/login';
             const response = await sendRequest(url, 'POST', body, headers );
 
+            setUserImage(response.image);
             auth.login(response.userID, response.token, response.username);
             closeModal(event, 'LOGIN');
             
@@ -164,6 +172,7 @@ function NavBar() {
           try {
             const headers = {
               'Content-Type': 'application/json',
+              Authorization: 'Bearer ' + auth.token
             };
 
             const body = JSON.stringify({
@@ -172,8 +181,14 @@ function NavBar() {
               password: registerFormState.inputs.password_form.value
             })
 
+            const formData = new FormData();
+            formData.append('username', registerFormState.inputs.username_form.value );
+            formData.append('email', registerFormState.inputs.email_form.value);
+            formData.append('password', registerFormState.inputs.password_form.value );
+            formData.append('image', registerFormState.inputs.image.value);
+
             const url: string = 'http://localhost:8000/api/users/register';
-            const response = await sendRequest(url, 'POST', body, headers );
+            const response = await sendRequest(url, 'POST', formData );
 
             auth.login(response.userID, response.token, response.username);
             closeModal(event, 'REGISTER');
@@ -279,9 +294,9 @@ function NavBar() {
 
         {
           showRegisterModal &&
-          <Modal title='Login' show={showRegisterModal} onCancel={(e) => {closeModal(e, 'REGISTER')}}>
+          <Modal title='Register' show={showRegisterModal} onCancel={(e) => {closeModal(e, 'REGISTER')}}>
           <>
-          <Form onSubmit={onSubmit('REGISTER')}>
+          <Form onSubmit={onSubmit('REGISTER')} classname='modal_content_height_scroll'>
             <Input title='Username' element='INPUT' id='username_form' inputType='INPUT' 
                     placeHolderText='text' errorText='ERROR EMAIL IS EMPTY' 
                     validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(3)]} 
@@ -299,12 +314,14 @@ function NavBar() {
                     onInput={registerInputHandler}
               />
 
+              <ImageUpload id='image' onInput={registerInputHandler} />
+
               <Button 
                 classname='button_submit' 
                 classname_enabled='button_submit_enabled' 
                 classname_disabled='button_submit_disabled' 
                 type='submit'
-                label='Create new post' 
+                label='Register' 
                 disabled={!registerFormState.isValid} 
               />
 
@@ -328,10 +345,11 @@ function NavBar() {
           { auth.isLoggedIn &&
           <>
             <Link className='pageHeader_UserImg' to={`/${auth.username}/${auth.userId}/posts`}>
-              <img className='user_List_profile_picture' src='' alt=''></img>
+              <img className='user_List_profile_picture' src={`http://localhost:8000/${userImage}`} alt=''></img>
             </Link>
 
             <p className='pageHeader_username'>{auth.username}</p>
+
           </>
 
           }

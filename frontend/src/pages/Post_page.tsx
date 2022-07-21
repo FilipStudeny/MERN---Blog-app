@@ -87,7 +87,6 @@ const Post_page = () => {
 
   }, [sendRequest]);
 
-
   return (
     <>
     {isLoading &&

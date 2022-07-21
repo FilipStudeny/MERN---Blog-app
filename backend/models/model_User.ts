@@ -8,7 +8,7 @@ const user_Schema = new Schema({
         username: { type: String, required: true, unique: true },
         email: { type: String, required: true, unique: true },
         password: { type: String, required: true, minlength: 3 },
-        user_image: { type: String },
+        user_image: { type: String, required: true },
         posts: [{ type: mongoose.Types.ObjectId, required: true, ref: 'Post'  }], //relation bewtean post and user
 
     },{ timestamps: true }
