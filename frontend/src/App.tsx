@@ -26,14 +26,16 @@ function App() {
 
   const [userID, setUserID] = useState<any>();
   const [username, setUserName] = useState<any>();
+  const [userImage, setUserImage] = useState('');
   const [token, setToken] = useState<any>();
   const [tokenExpirationDate, setTokenExpirationDate] = useState<any>();
 
   
-  const login = useCallback((userID: any, token: any, username: any, expirationDate: any) => {
+  const login = useCallback((userID: any, token: any, username: any, profilePicture: string, expirationDate: any) => {
     setUserID(userID);
     setUserName(username);
     setToken(token);
+    setUserImage(profilePicture);
 
     const tokenExpirationDate = expirationDate ||  new Date(new Date().getTime() + 1000 * 60 * 60);
     setTokenExpirationDate(tokenExpirationDate);
@@ -41,6 +43,7 @@ function App() {
     localStorage.setItem('userData', JSON.stringify({
       userID: userID,
       username: username,
+      profilePicture: profilePicture,
       token: token,
       tokenExpirationData: tokenExpirationDate.toISOString()
     }));
@@ -51,6 +54,7 @@ function App() {
     setUserID(null);
     setUserName(null);
     setToken(null);
+    setUserImage('');
     setTokenExpirationDate(null);
     localStorage.removeItem('userData');
   },[])
@@ -69,13 +73,13 @@ function App() {
     const storedData: any = JSON.parse(localStorage.getItem('userData') || '{}' );
   
     if (storedData && storedData.token && new Date(storedData.tokenExpirationData) > new Date()){
-      login(storedData.userID, storedData.token, storedData.username, new Date(storedData.tokenExpirationData));
+      login(storedData.userID, storedData.token, storedData.username, storedData.profilePicture ,new Date(storedData.tokenExpirationData));
     }
 
   }, [login]);
 
   return (
-    <context_auth.Provider value={{isLoggedIn: !!token, userId: userID, username: username, login: login, loggout: logout, token: token}}>
+    <context_auth.Provider value={{isLoggedIn: !!token, userId: userID, username: username, login: login, loggout: logout, token: token, profilePicture: userImage}}>
 
     <div className='pageBody'>
         <Router>

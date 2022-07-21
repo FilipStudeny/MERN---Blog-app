@@ -1,5 +1,5 @@
 import express from "express";
-import { getUsers, loginUser, registerUser } from "../controllers/controller_USERS";
+import { getUser, getUsers, loginUser, registerUser } from "../controllers/controller_USERS";
 import { check } from 'express-validator';
 import { userProfilePictureUpload } from "../middleware/middleware_file_upload";
 
@@ -7,6 +7,7 @@ export const route = express.Router();
 
 
 route.get('/', getUsers);
+route.get('/:userID', getUser);
 route.post('/login', loginUser);
 route.post('/register',
     userProfilePictureUpload.single('image'),

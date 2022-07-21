@@ -7,7 +7,8 @@ const context_auth = createContext({
     userId: '',
     username: '',
     token: '',
-    login: (userID: any, token: any, username: any, expirationDate?: any) => {
+    profilePicture: '',
+    login: (userID: any, token: any, username: any, profilePicture: string, expirationDate?: any) => {
         
     },
     loggout: () => {

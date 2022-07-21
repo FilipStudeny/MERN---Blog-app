@@ -38,8 +38,6 @@ const Post_page = () => {
     }
   }
 
-  console.log(isAuthorized());
-
   const openModal = (event: any) =>  {
       setShowModal(true);
   }
@@ -62,6 +60,8 @@ const Post_page = () => {
     } catch (err: any) {}
   }
   
+  const [userImage, setUserImage] = useState('');
+
   useEffect(() => {
     const fetchPosts = async () => {
 
@@ -80,6 +80,10 @@ const Post_page = () => {
         setCreatorID(data.creator_id);
         setPostImage(data.image);
 
+        const urlImage: string = `http://localhost:8000/api/users/${data.creator_id}`;
+        const responseData2 = await sendRequest(urlImage);
+
+        setUserImage(responseData2.user);
       } catch (err) {}
     }
 
@@ -117,7 +121,9 @@ const Post_page = () => {
         <div className='post_Item'>
           <div className='post_header'>
             <div>
-              <div className='post_User_image'></div>
+              <div className='pageHeader_UserImg'>
+                <img className='user_List_profile_picture' src={`http://localhost:8000/${userImage}`} alt={title}/>
+              </div>
               <div>
                 <h2 className='post_authorname'>{creator_name}</h2>
                 <h2 className='post_title'>{title}</h2>

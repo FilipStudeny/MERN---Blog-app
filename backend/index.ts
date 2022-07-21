@@ -14,8 +14,8 @@ const app: Application = express();
 //*** MIDDLEWARE ***//
 dotenv.config();
 app.use(bodyParser.json());
-app.use('/uploads/users', express.static(path.join('uploads/users/')));
-app.use('/uploads/posts', express.static(path.join('uploads/posts/')));
+app.use('/uploads/users', express.static(path.join('uploads', 'users')));
+app.use('/uploads/posts', express.static(path.join('uploads', 'posts')));
 
 app.use((req: Request, res: Response, next: NextFunction) => {
     

@@ -6,6 +6,23 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 
+
+export const getUser = async (req: Request, res: Response, next: NextFunction) => {
+    const userID = req.params.userID;
+    let user: any;
+    
+    try {
+        user = await USER.findById(userID, '-password');
+    } catch (err) {
+        const error = {
+            message: "Couldn't fetch user, try again !",
+            code: 500
+        };
+        return next(error);
+    }
+    return res.json({ user: user.user_image });
+};
+
 export const getUsers = async (req: Request, res: Response, next: NextFunction) => {
     let users: any;
     

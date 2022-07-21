@@ -162,7 +162,7 @@ function NavBar() {
             const response = await sendRequest(url, 'POST', body, headers );
 
             setUserImage(response.image);
-            auth.login(response.userID, response.token, response.username);
+            auth.login(response.userID, response.token, response.username, response.image);
             closeModal(event, 'LOGIN');
             
           } catch (err) { } 
@@ -170,16 +170,6 @@ function NavBar() {
         
         case 'REGISTER':
           try {
-            const headers = {
-              'Content-Type': 'application/json',
-              Authorization: 'Bearer ' + auth.token
-            };
-
-            const body = JSON.stringify({
-              username: registerFormState.inputs.username_form.value,
-              email: registerFormState.inputs.email_form.value,
-              password: registerFormState.inputs.password_form.value
-            })
 
             const formData = new FormData();
             formData.append('username', registerFormState.inputs.username_form.value );
@@ -190,7 +180,7 @@ function NavBar() {
             const url: string = 'http://localhost:8000/api/users/register';
             const response = await sendRequest(url, 'POST', formData );
 
-            auth.login(response.userID, response.token, response.username);
+            auth.login(response.userID, response.token, response.username, response.image);
             closeModal(event, 'REGISTER');
             
           } catch (err) {
@@ -270,7 +260,7 @@ function NavBar() {
                 classname_enabled='button_submit_enabled' 
                 classname_disabled='button_submit_disabled' 
                 type='submit'
-                label='Create new post' 
+                label='Login' 
                 disabled={!loginFormState.isValid} 
               />
 
@@ -298,7 +288,7 @@ function NavBar() {
           <>
           <Form onSubmit={onSubmit('REGISTER')} classname='modal_content_height_scroll'>
             <Input title='Username' element='INPUT' id='username_form' inputType='INPUT' 
-                    placeHolderText='text' errorText='ERROR EMAIL IS EMPTY' 
+                    placeHolderText='text' errorText='ERROR USERNAME IS EMPTY' 
                     validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(3)]} 
                     onInput={registerInputHandler}
               />
@@ -309,7 +299,7 @@ function NavBar() {
                     onInput={registerInputHandler}
               />
               <Input title='Password' element='INPUT' id='password_form' 
-                    inputType='INPUT' placeHolderText='text' errorText='ERROR INPUT IS EMPTY' 
+                    inputType='PASSWORD' placeHolderText='text' errorText='ERROR INPUT IS EMPTY' 
                     validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(5)]} 
                     onInput={registerInputHandler}
               />
@@ -345,9 +335,8 @@ function NavBar() {
           { auth.isLoggedIn &&
           <>
             <Link className='pageHeader_UserImg' to={`/${auth.username}/${auth.userId}/posts`}>
-              <img className='user_List_profile_picture' src={`http://localhost:8000/${userImage}`} alt=''></img>
+              <img className='user_List_profile_picture' src={`http://localhost:8000/${auth.profilePicture}`} alt=''></img>
             </Link>
-
             <p className='pageHeader_username'>{auth.username}</p>
 
           </>

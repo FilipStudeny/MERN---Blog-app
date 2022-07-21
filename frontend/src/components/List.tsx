@@ -20,13 +20,13 @@ const List = ( { users, posts, whichList} : ListProps) => {
                 const content_posts = (
                     <div className='list'>
                         <h1>Posts</h1>
-                        {posts.map(({ creator_id, creator_name, title, id, description }) => (
+                        {posts.map(({ creator_id, creator_name, title, id, description, createdAt }) => (
                             <PostItem 
                                 creator_id={creator_id}
                                 creator_name={creator_name}
                                 title={title}
                                 description={description}
-                                id={id} created_at={''}                    
+                                id={id} createdAt={createdAt}                    
                                 /> 
                         ))}
                     </div>
@@ -47,10 +47,10 @@ const List = ( { users, posts, whichList} : ListProps) => {
                 const content_users = (
                     <div className='list'>
                         <h1>Users</h1>
-                        {users?.map(({username, image, id}) => (
+                        {users.map(({username, user_image, id}) => (
                             <UserItem 
                                 username={username} 
-                                image={image} 
+                                user_image={user_image} 
                                 key={username}
                                 id={id}
                                 /> 

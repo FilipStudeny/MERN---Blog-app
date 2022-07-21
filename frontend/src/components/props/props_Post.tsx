@@ -5,7 +5,7 @@ export default interface Post{
     image?: string,
     title: string,
     description: string,
-    created_at: string,
+    createdAt: string,
     
 }
 

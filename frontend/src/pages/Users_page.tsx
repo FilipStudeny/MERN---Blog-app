@@ -15,7 +15,7 @@ const Users_page = () => {
             try {
                 const url: string = 'http://localhost:8000/api/users/';
                 const responseData = await sendRequest(url);
-    
+
                 setUsers(responseData.users);
                 clearError();
             } catch (err) { }
