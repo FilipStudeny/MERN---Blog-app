@@ -5,6 +5,7 @@ import Comments from '../components/Comments';
 import context_auth from '../components/context/context_auth';
 import Button from '../components/form/Button';
 import Form from '../components/form/Form';
+import FormText from '../components/form/FormText';
 import useHttpRequest from '../components/hooks/htpp_hook';
 import Modal from '../components/modal/Modal';
 
@@ -23,10 +24,22 @@ const Post_page = () => {
   const [postID, setPostId] = useState();
   const [description, setDescription] = useState();
   const [creator_name, setCreatorName] = useState();
+  const [creator_id, setCreatorID] = useState('');
   const [creationTime, setCreationTime] = useState('');
   const [image, setPostImage] = useState('');
 
   const navigate = useNavigate();
+
+  const isAuthorized = () => {
+    if(auth.username === creator_name){
+      return true;
+    }else{
+      return false
+    }
+  }
+
+  console.log(isAuthorized());
+
   const openModal = (event: any) =>  {
       setShowModal(true);
   }
@@ -44,7 +57,7 @@ const Post_page = () => {
       const url: string = `http://localhost:8000/api/posts/${postID}`;
       await sendRequest(url, 'DELETE', '', headers);
       closeModal(event);
-      navigate(`/${creator_name}/posts`);
+      navigate(`/${creator_name}/${creator_id}/posts`);
 
     } catch (err: any) {}
   }
@@ -64,6 +77,7 @@ const Post_page = () => {
         setPostId(data.id);
         setCreationTime(new Date(data.createdAt).toDateString());
         setCreatorName(data.creator_name);
+        setCreatorID(data.creator_id);
         setPostImage(data.image);
 
       } catch (err) {}
@@ -77,9 +91,10 @@ const Post_page = () => {
   return (
     <>
     {isLoading &&
-      <h1>Loading ...</h1>
+      <FormText type='LOADING' text='Loading...' />
     }
-    { !isLoading && showModal &&  auth.isLoggedIn &&   
+    
+    { !isLoading && showModal && isAuthorized() === true &&
       <Modal title='Delete post' show={showModal} onCancel={closeModal}>
         <>
         <Form onSubmit={onSubmit} classname='modal_content_height_auto'>
@@ -110,7 +125,7 @@ const Post_page = () => {
               </div>
             </div>
             
-            { auth.isLoggedIn && 
+            { auth.isLoggedIn && isAuthorized() === true &&
               <button onClick={openModal} className='post_delete_btn'>Delete post</button>
             }
           </div>
@@ -129,7 +144,9 @@ const Post_page = () => {
           </div>
         </div>  
 
-      <Comments />
+     {
+      // <Comments />
+     }
       </div>
     }
     </>

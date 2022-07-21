@@ -50,7 +50,7 @@ const ImageUpload = ({ id, onInput } : ImageUploadProps) => {
         <input id={id} ref={filePickerRef} style={{display: 'none'}} type='file' accept='.jpg,.png,.jpeg' onChange={(e: any) => pickedHandler(e)}/>
             <div className='form_image_preview_container'>
                 { previewURL && 
-                    <img src={previewURL} alt="Image previw"/>
+                    <img className='form_preview_image' src={previewURL} alt="Image previw"/>
                 }
                 { !previewURL &&
                     <p>Please pick an image</p>

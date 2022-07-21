@@ -11,6 +11,7 @@ import { useForm } from './hooks/form_hook'
 import context_auth from './context/context_auth';
 import useHttpRequest from './hooks/htpp_hook';
 import ImageUpload from './form/ImageUpload';
+import FormText from './form/FormText';
 
 
 function NavBar() {
@@ -129,6 +130,8 @@ function NavBar() {
             await sendRequest(url, 'POST', formData, headers);
             
             closeModal(event, 'POST');
+            newPostFormState.inputs.image.value = null;
+            newPostFormState.inputs.image.isValid = false;
             navigate('/');
 
 
@@ -215,6 +218,17 @@ function NavBar() {
                 disabled={!newPostFormState.isValid} 
                 
             />
+
+            <>
+              { isLoading && 
+                <FormText type='LOADING' text='Loading...' />
+              }
+
+              {
+                error &&
+                <FormText type='ERROR' text="Error couldn't create post, try again !" />
+              } 
+            </>
           </Form>
           </>
         </Modal>
@@ -246,10 +260,18 @@ function NavBar() {
               />
 
               <>
+
               { isLoading && 
-                <h1>Loading...</h1>
+                <FormText type='LOADING' text='Loading...' />
               }
+
+              {
+                error &&
+                <FormText type='ERROR' text='Wrong credentials try again !' />
+              } 
+
               </>
+
           </Form>
           </>
         </Modal>
@@ -288,8 +310,13 @@ function NavBar() {
 
               <>
               { isLoading && 
-                <h1>Loading...</h1>
+                <FormText type='LOADING' text='Loading...' />
               }
+
+              {
+                error &&
+                <FormText type='ERROR' text='Invalid register information, try again !' />
+              } 
               </>
           </Form>
           </>
@@ -300,12 +327,11 @@ function NavBar() {
         <div>
           { auth.isLoggedIn &&
           <>
-            <Link className='pageHeader_UserImg' to='/myplaces'>
-              <img src='' alt='profile pic'></img>
+            <Link className='pageHeader_UserImg' to={`/${auth.username}/${auth.userId}/posts`}>
+              <img className='user_List_profile_picture' src='' alt=''></img>
             </Link>
 
-            <p>{auth.username}</p>
-            <p>{auth.userId}</p>
+            <p className='pageHeader_username'>{auth.username}</p>
           </>
 
           }
@@ -316,8 +342,8 @@ function NavBar() {
             <Link to='/users'>Users</Link>
             { auth.isLoggedIn && 
               <>
-                <Link to='#' onClick={(e) => { openModal(e, 'POST') }} >New post</Link>
-                <Link to={'/'+ auth.username + '/posts'}>My places</Link>
+                <Link to='#' onClick={(e) => { openModal(e, 'POST') }} >Create new post</Link>
+                <Link to={`/${auth.username}/${auth.userId}/posts`} >My posts</Link>
               </>
             }
             

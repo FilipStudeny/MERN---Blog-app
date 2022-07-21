@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import FormText from '../components/form/FormText';
 import useHttpRequest from '../components/hooks/htpp_hook';
 import List from '../components/List';
 
@@ -22,11 +23,11 @@ const Users_page = () => {
 
         fetchUsers();
     }, [sendRequest]);
-
+    
     return (
         <>
             { isLoading &&
-                <h1>Loading ...</h1>
+                <FormText type='LOADING' text='Loading...' />
             }
 
             { !isLoading &&

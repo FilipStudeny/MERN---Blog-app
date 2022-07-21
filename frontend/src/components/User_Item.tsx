@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom';
 import User from './props/props_UserItem';
 
 
-const UserIListtem = ({ username, image }: User) => {
+const UserItem = ({ username, image, id }: User) => {
   return (
-      <Link className='user_List_Item' to={`/${username}/posts`}>
+      <Link className='user_List_Item' to={`/${username}/${id}/posts`}>
         <img className='user_List_profile_picture' src={image} alt={image}/>
         <div className='user_List_data'>
             <h2>{username}</h2>
@@ -14,4 +14,4 @@ const UserIListtem = ({ username, image }: User) => {
   )
 }
 
-export default UserIListtem
+export default UserItem

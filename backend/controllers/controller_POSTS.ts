@@ -3,17 +3,27 @@ import { validationResult } from 'express-validator';
 import { POST } from "../models/model_Post";
 import { USER } from "../models/model_User";
 import fs from 'fs';
+import { json } from "body-parser";
 
 const PORT: number = 8000;
 
-export const getPosts = (req: Request, res: Response, next: NextFunction) => {
+export const getPosts = async (req: Request, res: Response, next: NextFunction) => {
 
-    const error = {
-            message: "Error couldn't find any posts",
-            code: 404
+    let posts: any;
+    try {
+        posts = await POST.find();
+    } catch (err: any) {
+        const error = {
+            message: "Error couldn't fetch any posts",
+            code: 500
+        };
+    
+        return next(error);
     }
 
-    throw next(error);
+    return res.json({ posts: posts.map((p: { toObject: (arg0: { getters: boolean; }) => any; }) => p.toObject({getters: true})) });
+
+
 };
 
 export const getPostByID = async (req: Request, res: Response, next: NextFunction) => {

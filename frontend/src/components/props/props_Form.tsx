@@ -33,4 +33,9 @@ export interface ImageUploadProps{
 
 }
 
+export interface FormTextProps{
+    text: string,
+    type: string
+}
+
 

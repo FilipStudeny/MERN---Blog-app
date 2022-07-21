@@ -1,6 +1,7 @@
+import FormText from './form/FormText';
 import PostItem from './Post_Item';
 import ListProps from './props/props_List';
-import UserIListtem from './User_Item';
+import UserItem from './User_Item';
 
 const List = ( { users, posts, whichList} : ListProps) => {
 
@@ -11,7 +12,7 @@ const List = ( { users, posts, whichList} : ListProps) => {
                 if(!posts?.length){
                     return(
                         <div className='list'>
-                            <h1>No posts Found !</h1>
+                            <FormText type='ERROR' text="No posts found !" />
                         </div>
                     )
                 }
@@ -37,7 +38,7 @@ const List = ( { users, posts, whichList} : ListProps) => {
                 if(!users?.length) {
                     return(
                         <div className='list'>
-                            <h1>No users Found !</h1>
+                            <FormText type='ERROR' text="No users found !" />
                         </div>
                     );
                     
@@ -46,11 +47,12 @@ const List = ( { users, posts, whichList} : ListProps) => {
                 const content_users = (
                     <div className='list'>
                         <h1>Users</h1>
-                        {users?.map(({username, image}) => (
-                            <UserIListtem 
+                        {users?.map(({username, image, id}) => (
+                            <UserItem 
                                 username={username} 
                                 image={image} 
                                 key={username}
+                                id={id}
                                 /> 
                         ))
                         }
@@ -61,8 +63,10 @@ const List = ( { users, posts, whichList} : ListProps) => {
             default:
                 return (
                     <>
+
                     <div className='list'>
-                        <h1>Home Page</h1>
+                        <FormText type='LOADING' text="All posts!" />
+
                     </div>
                     </>
                 );

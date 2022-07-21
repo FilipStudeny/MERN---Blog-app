@@ -7,6 +7,7 @@ import { authorization } from "../middleware/autentication";
 export const route = express.Router();
 
 
+route.get('/', getPosts);
 route.get('/:postID', getPostByID);
 route.get('/user/:userID', getPostsByUserId);
 

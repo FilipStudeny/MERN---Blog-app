@@ -16,6 +16,7 @@ import Posts_page from './pages/Posts_page';
 import Users_page from './pages/Users_page';
 import Post_page  from './pages/Post_page';
 import List from './components/List';
+import Home_page from './pages/Home_page';
 
 
 let logoutTimer: any;
@@ -85,9 +86,9 @@ function App() {
               <div className='pageBody_Column'></div>
               <section>
                 <Routes>
-                  <Route path='/' element={<List />}/>
+                  <Route path='/' element={<Home_page />}/>
                   <Route path='/users' element={ < Users_page /> }/>
-                  <Route path='/:user/posts' element={<Posts_page />}/>
+                  <Route path='/:user/:userID/:posts' element={<Posts_page />}/>
                   <Route path='/:user/post/:id' element={< Post_page />}/>
                 </Routes>  
               </section>
